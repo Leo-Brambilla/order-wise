@@ -1,8 +1,9 @@
-package com.order_wise.clients.infrastructure.persistence;
+package com.order_wise.clients.infrastructure.persistence.repositories;
 
 import com.order_wise.clients.domain.entities.User;
 import com.order_wise.clients.domain.repositories.UserRepository;
 import com.order_wise.clients.infrastructure.mappers.UserMapper;
+import com.order_wise.clients.infrastructure.persistence.entities.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

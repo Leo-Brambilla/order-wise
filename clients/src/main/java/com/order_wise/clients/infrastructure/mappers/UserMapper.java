@@ -1,7 +1,7 @@
 package com.order_wise.clients.infrastructure.mappers;
 
 import com.order_wise.clients.domain.entities.User;
-import com.order_wise.clients.infrastructure.persistence.UserEntity;
+import com.order_wise.clients.infrastructure.persistence.entities.UserEntity;
 
 
 

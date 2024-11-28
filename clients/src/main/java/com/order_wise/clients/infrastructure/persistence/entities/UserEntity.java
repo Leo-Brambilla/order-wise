@@ -1,4 +1,4 @@
-package com.order_wise.clients.infrastructure.persistence;
+package com.order_wise.clients.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

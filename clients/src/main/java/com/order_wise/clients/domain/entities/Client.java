@@ -1,69 +1,49 @@
 package com.order_wise.clients.domain.entities;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Client {
     private Long id;
-    private Long userId;
-    private List<Long> addressIds;
-    private Long loyaltyPoints;
+    private Integer loyaltyPoints;
     private Long preferredPaymentMethodId;
+    private Address address;
+    private User user;
 
-    public Client(Long id, Long userId, List<Long> addressIds, Long loyaltyPoints, Long preferredPaymentMethodId) {
+    public Client(Long id, Integer loyaltyPoints, Long preferredPaymentMethodId, Address address, User user) {
         this.id = id;
-        this.userId = userId;
-        this.addressIds = addressIds;
         this.loyaltyPoints = loyaltyPoints;
         this.preferredPaymentMethodId = preferredPaymentMethodId;
-    }
-
-    public void addLoyaltyPoints(Long points) {
-        this.loyaltyPoints += points;
-    }
-
-    public void setPreferredPaymentMethod(Long paymentMethodId) {
-        this.preferredPaymentMethodId = paymentMethodId;
+        this.address = address;
+        this.user = user;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public List<Long> getAddressIds() {
-        return addressIds;
-    }
-
-    public void setAddressIds(List<Long> addressIds) {
-        this.addressIds = addressIds;
-    }
-
-    public Long getLoyaltyPoints() {
+    public Integer getLoyaltyPoints() {
         return loyaltyPoints;
-    }
-
-    public void setLoyaltyPoints(Long loyaltyPoints) {
-        this.loyaltyPoints = loyaltyPoints;
     }
 
     public Long getPreferredPaymentMethodId() {
         return preferredPaymentMethodId;
     }
 
-    public void setPreferredPaymentMethodId(Long preferredPaymentMethodId) {
+    public Address getAddress() {
+        return address;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void update(String name, Integer loyaltyPoints, Long preferredPaymentMethodId, Address address) {
+        if (this.user != null) {
+            this.user.update(name, this.user.getPassword());
+        }
+        this.loyaltyPoints = loyaltyPoints;
         this.preferredPaymentMethodId = preferredPaymentMethodId;
+        this.address = address;
     }
 
     @Override
@@ -76,6 +56,6 @@ public class Client {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 }

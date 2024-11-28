@@ -1,6 +1,7 @@
 package com.order_wise.clients.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class ClientEntity {
     private Long id;
 
     @Column(name = "loyalty_points", nullable = false)
-    private Long loyaltyPoints;
+    private Integer loyaltyPoints;
 
     @Column(name = "preferred_payment_method_id")
     private Long preferredPaymentMethodId;
@@ -33,15 +34,16 @@ public class ClientEntity {
     private LocalDateTime updatedAt;
 
     public ClientEntity() {
-        this.createdAt = LocalDateTime.now();
     }
 
-    public ClientEntity(Long loyaltyPoints, Long preferredPaymentMethodId, UserEntity user, AddressEntity address) {
+    public ClientEntity(Long id, Integer loyaltyPoints, Long preferredPaymentMethodId, UserEntity user, AddressEntity address, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
         this.loyaltyPoints = loyaltyPoints;
         this.preferredPaymentMethodId = preferredPaymentMethodId;
         this.user = user;
         this.address = address;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -52,11 +54,11 @@ public class ClientEntity {
         this.id = id;
     }
 
-    public Long getLoyaltyPoints() {
+    public Integer getLoyaltyPoints() {
         return loyaltyPoints;
     }
 
-    public void setLoyaltyPoints(Long loyaltyPoints) {
+    public void setLoyaltyPoints(Integer loyaltyPoints) {
         this.loyaltyPoints = loyaltyPoints;
     }
 
@@ -110,7 +112,7 @@ public class ClientEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hashCode(id);
     }
 
     @PreUpdate

@@ -1,12 +1,12 @@
 package com.order_wise.clients.infrastructure.controllers;
 
-import com.order_wise.clients.application.dto.UserRequestDTO;
-import com.order_wise.clients.application.dto.UserResponseDTO;
-import com.order_wise.clients.application.dto.UserUpdateDTO;
-import com.order_wise.clients.application.usecases.CreateUserUseCase;
-import com.order_wise.clients.application.usecases.GetAllUsersUseCase;
-import com.order_wise.clients.application.usecases.GetUserByIdUseCase;
-import com.order_wise.clients.application.usecases.UpdateUserUseCase;
+import com.order_wise.clients.application.dto.userDTO.UserRequestDTO;
+import com.order_wise.clients.application.dto.userDTO.UserResponseDTO;
+import com.order_wise.clients.application.dto.userDTO.UserUpdateDTO;
+import com.order_wise.clients.application.usecases.userUseCases.CreateUserUseCase;
+import com.order_wise.clients.application.usecases.userUseCases.GetAllUsersUseCase;
+import com.order_wise.clients.application.usecases.userUseCases.GetUserByIdUseCase;
+import com.order_wise.clients.application.usecases.userUseCases.UpdateUserUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

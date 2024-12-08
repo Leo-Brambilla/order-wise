@@ -5,12 +5,14 @@ public class UserResponseDTO {
     private Long id;
     private String name;
     private String document;
-    private Boolean isActive = true;
+    private String email;
+    private Boolean isActive;
 
-    public UserResponseDTO(Long id, String name, String document, Boolean isActive) {
+    public UserResponseDTO(Long id, String name, String document, String email, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.document = document;
+        this.email = email;
         this.isActive = isActive;
     }
 
@@ -26,7 +28,31 @@ public class UserResponseDTO {
         return document;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public Boolean getActive() {
         return isActive;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

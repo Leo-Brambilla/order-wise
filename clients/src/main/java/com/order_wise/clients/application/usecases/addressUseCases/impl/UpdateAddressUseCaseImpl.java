@@ -28,7 +28,7 @@ public class UpdateAddressUseCaseImpl implements UpdateAddressUseCase {
         existingAddress.setCity(addressUpdateDTO.getCity());
         existingAddress.setState(addressUpdateDTO.getState());
         existingAddress.setZipCode(addressUpdateDTO.getZipCode());
-        existingAddress.setType(addressUpdateDTO.getType());
+        existingAddress.setAddressType(addressUpdateDTO.getType());
         existingAddress.setUpdatedAt(LocalDateTime.now());
 
         return addressRepository.save(existingAddress);

@@ -17,6 +17,9 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String document;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false)
     private String password;
 
@@ -26,10 +29,11 @@ public class UserEntity {
 
     private LocalDateTime updatedAt;
 
-    public UserEntity(Long id, String name, String document, String password, Boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserEntity(Long id, String name, String document, String email, String password, Boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.document = document;
+        this.email = email;
         this.password = password;
         this.isActive = isActive;
         this.createdAt = createdAt;
@@ -64,6 +68,14 @@ public class UserEntity {
         this.document = document;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -94,5 +106,13 @@ public class UserEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 }

@@ -1,6 +1,6 @@
 package com.order_wise.clients.application.usecases.clientUseCases.impl;
 
-
+import com.order_wise.clients.application.dto.addressDTO.AddressDTO;
 import com.order_wise.clients.application.dto.clientDTO.ClientRequestDTO;
 import com.order_wise.clients.application.dto.clientDTO.ClientResponseDTO;
 import com.order_wise.clients.application.usecases.clientUseCases.CreateClientUseCase;
@@ -8,41 +8,37 @@ import com.order_wise.clients.domain.entities.Address;
 import com.order_wise.clients.domain.entities.Client;
 import com.order_wise.clients.domain.entities.User;
 import com.order_wise.clients.domain.repositories.ClientRepository;
-import com.order_wise.clients.domain.repositories.AddressRepository;
+import com.order_wise.clients.domain.repositories.UserRepository;
+import com.order_wise.clients.infrastructure.mappers.ClientMapper;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreateClientUseCaseImpl implements CreateClientUseCase {
 
     private final ClientRepository clientRepository;
-    private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
 
-    public CreateClientUseCaseImpl(ClientRepository clientRepository, AddressRepository addressRepository) {
+    public CreateClientUseCaseImpl(ClientRepository clientRepository, UserRepository userRepository) {
         this.clientRepository = clientRepository;
-        this.addressRepository = addressRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public ClientResponseDTO execute(ClientRequestDTO clientRequestDTO) {
-        User user = new User(clientRequestDTO.getUserName(), clientRequestDTO.getUserDocument(), clientRequestDTO.getUserPassword());
-        Address address = new Address();
-        address.setStreet(clientRequestDTO.getAddressStreet());
-        address.setNumber(clientRequestDTO.getAddressNumber());
-        address.setCity(clientRequestDTO.getAddressCity());
-        address.setState(clientRequestDTO.getAddressState());
+    public ClientResponseDTO execute(@Valid ClientRequestDTO clientRequestDTO) {
+        User user = ClientMapper.toUser(ClientRequestDTO.getUser());
 
-        Client client = new Client(null, clientRequestDTO.getLoyaltyPoints(), clientRequestDTO.getPreferredPaymentMethodId(), address, user);
-
-        Client savedClient = clientRepository.save(client);
-
-        return new ClientResponseDTO(
-                savedClient.getId(),
-                savedClient.getUser().getName(),
-                savedClient.getUser().getDocument(),
-                savedClient.getLoyaltyPoints(),
-                savedClient.getPreferredPaymentMethodId(),
-                savedClient.getAddress().getStreet(),
-                savedClient.getAddress().getCity()
+        AddressDTO addressDTO = clientRequestDTO.getAddress();
+        Address address = new Address(
+                addressDTO.getStreet(),
+                addressDTO.getNumber(),
+                addressDTO.getCity(),
+                addressDTO.getState()
         );
+
+        Client newClient = new Client(user, address);
+        Client savedClient = clientRepository.save(newClient);
+
+        return ClientMapper.toResponseDTO(savedClient);
     }
 }

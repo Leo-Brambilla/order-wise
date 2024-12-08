@@ -1,13 +1,14 @@
 package com.order_wise.clients.application.usecases.clientUseCases.impl;
 
-
-
 import com.order_wise.clients.application.dto.clientDTO.ClientResponseDTO;
 import com.order_wise.clients.application.dto.clientDTO.ClientUpdateDTO;
 import com.order_wise.clients.application.usecases.clientUseCases.UpdateClientUseCase;
 import com.order_wise.clients.domain.entities.Address;
 import com.order_wise.clients.domain.entities.Client;
+import com.order_wise.clients.domain.exceptions.UserNotFoundException;
 import com.order_wise.clients.domain.repositories.ClientRepository;
+import com.order_wise.clients.infrastructure.mappers.ClientMapper;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,28 +21,34 @@ public class UpdateClientUseCaseImpl implements UpdateClientUseCase {
     }
 
     @Override
-    public ClientResponseDTO execute(Long clientId, ClientUpdateDTO clientUpdateDTO) {
-
+    public ClientResponseDTO execute(Long clientId, @Valid ClientUpdateDTO clientUpdateDTO) {
         Client client = clientRepository.findById(clientId)
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado com ID: " + clientId));
+                .orElseThrow(() -> new UserNotFoundException("Cliente não encontrado com ID: " + clientId));
 
-        client.getUser().update(clientUpdateDTO.getName(), clientUpdateDTO.getDocument());
-        client.setPreferredPaymentMethodId(clientUpdateDTO.getPreferredPaymentMethodId());
+        if (clientUpdateDTO.getUser() != null) {
+            client.getUser().update(
+                    clientUpdateDTO.getUser().getName(),
+                    clientUpdateDTO.getUser().getEmail(),
+                    client.getUser().getPassword()
+            );
+        }
 
-        Address address = client.getAddress();
-        address.setStreet(clientUpdateDTO.getStreet());
-        address.setCity(clientUpdateDTO.getCity());
+        if (clientUpdateDTO.getLoyaltyPoints() != null) {
+            client.setLoyaltyPoints(clientUpdateDTO.getLoyaltyPoints());
+        }
 
-        clientRepository.save(client);
+        if (clientUpdateDTO.getAddress() != null) {
+            Address address = client.getAddress();
+            address.update(
+                    clientUpdateDTO.getAddress().getStreet(),
+                    clientUpdateDTO.getAddress().getNumber(),
+                    clientUpdateDTO.getAddress().getCity(),
+                    clientUpdateDTO.getAddress().getState(),
+                    clientUpdateDTO.getAddress().getAddressType()
+            );
+        }
+        Client updatedClient = clientRepository.save(client);
 
-        return new ClientResponseDTO(
-                client.getId(),
-                client.getUser().getName(),
-                client.getUser().getDocument(),
-                client.getLoyaltyPoints(),
-                client.getPreferredPaymentMethodId(),
-                address.getStreet(),
-                address.getCity()
-        );
+        return ClientMapper.toResponseDTO(updatedClient);
     }
 }

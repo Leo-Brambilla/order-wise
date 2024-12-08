@@ -8,14 +8,7 @@ import java.util.Optional;
 public interface ClientRepository {
 
     Client save(Client client);
-
     Optional<Client> findById(Long id);
-
-    Optional<Client> findByDocument(String document);
-
-    void deleteById(Long id);
-
     List<Client> findAll();
 
-    List<Client> findByPreferredPaymentMethodId(Long paymentMethodId);
 }

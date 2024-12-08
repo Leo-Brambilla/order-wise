@@ -1,121 +1,63 @@
 package com.order_wise.clients.application.dto.clientDTO;
 
-import jakarta.validation.constraints.NotBlank;
+import com.order_wise.clients.application.dto.addressDTO.AddressDTO;
+import com.order_wise.clients.application.dto.userDTO.UserRequestDTO;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 public class ClientRequestDTO {
 
-    @NotBlank
-    private String userName;
+    @NotNull(message = "User information cannot be null")
+    @Valid
+    private UserRequestDTO user;
 
-    @NotBlank
-    private String userDocument;
+    @NotNull(message = "Address information cannot be null")
+    @Valid
+    private AddressDTO address;
 
-    @NotBlank
-    private String userPassword;
+    private Integer loyaltyPoints = 0;
 
-    @NotBlank
-    private String addressStreet;
-
-    @NotBlank
-    private String addressNumber;
-
-    @NotBlank
-    private String addressCity;
-
-    @NotBlank
-    private String addressState;
-
-    @NotNull
-    private Integer loyaltyPoints;
-
-    @NotNull
     private Long preferredPaymentMethodId;
 
     public ClientRequestDTO() {
     }
 
-    public ClientRequestDTO(String userName, String userDocument, String userPassword, String addressStreet, String addressNumber, String addressCity, String addressState, Integer loyaltyPoints, Long preferredPaymentMethodId) {
-        this.userName = userName;
-        this.userDocument = userDocument;
-        this.userPassword = userPassword;
-        this.addressStreet = addressStreet;
-        this.addressNumber = addressNumber;
-        this.addressCity = addressCity;
-        this.addressState = addressState;
-        this.loyaltyPoints = loyaltyPoints;
+    public ClientRequestDTO(UserRequestDTO user, AddressDTO address, Integer loyaltyPoints, Long preferredPaymentMethodId) {
+        this.user = user;
+        this.address = address;
+        this.loyaltyPoints = loyaltyPoints != null ? loyaltyPoints : 0; // Default if null
         this.preferredPaymentMethodId = preferredPaymentMethodId;
     }
 
-    public @NotBlank String getUserName() {
-        return userName;
+    public static UserRequestDTO getUser() {
+        return user;
     }
 
-    public void setUserName(@NotBlank String userName) {
-        this.userName = userName;
+    public void setUser(UserRequestDTO user) {
+        this.user = user;
     }
 
-    public @NotBlank String getUserDocument() {
-        return userDocument;
+    public AddressDTO getAddress() {
+        return address;
     }
 
-    public void setUserDocument(@NotBlank String userDocument) {
-        this.userDocument = userDocument;
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 
-    public @NotBlank String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(@NotBlank String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public @NotBlank String getAddressStreet() {
-        return addressStreet;
-    }
-
-    public void setAddressStreet(@NotBlank String addressStreet) {
-        this.addressStreet = addressStreet;
-    }
-
-    public @NotBlank String getAddressNumber() {
-        return addressNumber;
-    }
-
-    public void setAddressNumber(@NotBlank String addressNumber) {
-        this.addressNumber = addressNumber;
-    }
-
-    public @NotBlank String getAddressCity() {
-        return addressCity;
-    }
-
-    public void setAddressCity(@NotBlank String addressCity) {
-        this.addressCity = addressCity;
-    }
-
-    public @NotBlank String getAddressState() {
-        return addressState;
-    }
-
-    public void setAddressState(@NotBlank String addressState) {
-        this.addressState = addressState;
-    }
-
-    public @NotNull Integer getLoyaltyPoints() {
+    public Integer getLoyaltyPoints() {
         return loyaltyPoints;
     }
 
-    public void setLoyaltyPoints(@NotNull Integer loyaltyPoints) {
+    public void setLoyaltyPoints(Integer loyaltyPoints) {
         this.loyaltyPoints = loyaltyPoints;
     }
 
-    public @NotNull Long getPreferredPaymentMethodId() {
+    public Long getPreferredPaymentMethodId() {
         return preferredPaymentMethodId;
     }
 
-    public void setPreferredPaymentMethodId(@NotNull Long preferredPaymentMethodId) {
+    public void setPreferredPaymentMethodId(Long preferredPaymentMethodId) {
         this.preferredPaymentMethodId = preferredPaymentMethodId;
     }
 }

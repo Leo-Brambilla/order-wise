@@ -21,7 +21,8 @@ public class AddressRequestDTO {
     private String neighborhood;
     private String type;
 
-    public @NotBlank(message = "Street is required") String getStreet() {
+    public @NotBlank(message = "Street is required")
+    String getStreet() {
         return street;
     }
 
@@ -84,4 +85,5 @@ public class AddressRequestDTO {
     public void setType(String type) {
         this.type = type;
     }
+
 }

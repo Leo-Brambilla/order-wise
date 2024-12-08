@@ -1,61 +1,38 @@
 package com.order_wise.clients.application.dto.clientDTO;
 
+import com.order_wise.clients.application.dto.addressDTO.AddressDTO;
+import com.order_wise.clients.application.dto.userDTO.UserUpdateDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class ClientUpdateDTO {
 
-    private String name;
-    private Integer loyaltyPoints;
-    private Long preferredPaymentMethodId;
-    private String addressStreet;
-    private String addressCity;
+    @Valid
+    @NotNull(message = "User information cannot be null")
+    private final UserUpdateDTO user;
 
-    public ClientUpdateDTO() {
+    @Min(value = 0, message = "Loyalty points must be zero or greater")
+    private final Integer loyaltyPoints;
+
+    @Valid
+    private final AddressDTO address;
+
+    public ClientUpdateDTO(UserUpdateDTO user, Integer loyaltyPoints, AddressDTO address) {
+        this.user = user;
+        this.loyaltyPoints = loyaltyPoints != null ? loyaltyPoints : 0;
+        this.address = address;
     }
 
-    public ClientUpdateDTO(String name, Integer loyaltyPoints, Long preferredPaymentMethodId, String addressStreet, String addressCity) {
-        this.name = name;
-        this.loyaltyPoints = loyaltyPoints;
-        this.preferredPaymentMethodId = preferredPaymentMethodId;
-        this.addressStreet = addressStreet;
-        this.addressCity = addressCity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public UserUpdateDTO getUser() {
+        return user;
     }
 
     public Integer getLoyaltyPoints() {
         return loyaltyPoints;
     }
 
-    public void setLoyaltyPoints(Integer loyaltyPoints) {
-        this.loyaltyPoints = loyaltyPoints;
-    }
-
-    public Long getPreferredPaymentMethodId() {
-        return preferredPaymentMethodId;
-    }
-
-    public void setPreferredPaymentMethodId(Long preferredPaymentMethodId) {
-        this.preferredPaymentMethodId = preferredPaymentMethodId;
-    }
-
-    public String getAddressStreet() {
-        return addressStreet;
-    }
-
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
-    }
-
-    public String getAddressCity() {
-        return addressCity;
-    }
-
-    public void setAddressCity(String addressCity) {
-        this.addressCity = addressCity;
+    public AddressDTO getAddress() {
+        return address;
     }
 }

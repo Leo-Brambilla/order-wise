@@ -12,19 +12,18 @@ public class Address {
     private String neighborhood;
     private String city;
     private String state;
-    private AddressType type;
+    private String addressType;
     private String zipCode;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public enum AddressType {
-        RESIDENTIAL, BUSINESS;
-    }
-
     public Address() {
+        this.createdAt = LocalDateTime.now();
     }
 
-    public Address(Long id, Long clientId, String street, String number, String complement, String neighborhood, String city, String state, String type, String zipCode, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Address(Long id, Long clientId, String street, String number, String complement, String neighborhood,
+                   String city, String state, String addressType, String zipCode, LocalDateTime createdAt,
+                   LocalDateTime updatedAt) {
         this.id = id;
         this.clientId = clientId;
         this.street = street;
@@ -33,10 +32,58 @@ public class Address {
         this.neighborhood = neighborhood;
         this.city = city;
         this.state = state;
-        this.type = type;
+        this.addressType = addressType;
         this.zipCode = zipCode;
-        this.createdAt = createdAt;
+        this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
         this.updatedAt = updatedAt;
+    }
+
+    public Address(String street, String number, String city, String state, String addressType) {
+        if (street == null || street.isBlank()) {
+            throw new IllegalArgumentException("Street cannot be null or blank.");
+        }
+        if (city == null || city.isBlank()) {
+            throw new IllegalArgumentException("City cannot be null or blank.");
+        }
+        if (state == null || state.isBlank()) {
+            throw new IllegalArgumentException("State cannot be null.");
+        }
+        if (addressType == null) {
+            throw new IllegalArgumentException("AddressType cannot be null.");
+        }
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.state = state;
+        this.addressType = addressType;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public Address(String street, String number, String city, String state) {
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.state = state;
+    }
+
+    public Address(String street, String number, String city, String state, String type, String zipCode, String complement, String neighborhood) {
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.state = state;
+        this.addressType = type;
+        this.zipCode = zipCode;
+        this.complement = complement;
+        this.neighborhood = neighborhood;
+    }
+
+    public void update(String street, String number, String city, String state, String addressType) {
+        setStreet(street);
+        setNumber(number);
+        setCity(city);
+        setState(state);
+        setAddressType(addressType);
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -103,12 +150,12 @@ public class Address {
         this.state = state;
     }
 
-    public String getType() {
-        return type;
+    public String getAddressType() {
+        return addressType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
     }
 
     public String getZipCode() {
@@ -145,6 +192,6 @@ public class Address {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 }

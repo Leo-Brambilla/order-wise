@@ -1,10 +1,8 @@
 package com.order_wise.clients.infrastructure.controllers;
 
-
-
-
-import com.order_wise.clients.application.dto.ClientRequestDTO;
+import com.order_wise.clients.application.dto.clientDTO.ClientRequestDTO;
 import com.order_wise.clients.application.dto.clientDTO.ClientResponseDTO;
+import com.order_wise.clients.application.dto.clientDTO.ClientUpdateDTO;
 import com.order_wise.clients.application.usecases.clientUseCases.CreateClientUseCase;
 import com.order_wise.clients.application.usecases.clientUseCases.GetAllClientsUseCase;
 import com.order_wise.clients.application.usecases.clientUseCases.GetClientByIdUseCase;
@@ -49,17 +47,17 @@ public class ClientController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
-        ClientResponseDTO response = getClientByIdUseCase.execute(id);
+    @GetMapping("/{clientId}")
+    public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long clientId) {
+        ClientResponseDTO response = getClientByIdUseCase.execute(clientId);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{clientId}")
     public ResponseEntity<ClientResponseDTO> updateClient(
-            @PathVariable Long id,
-            @RequestBody @Valid ClientRequestDTO clientRequestDTO) {
-        ClientResponseDTO response = updateClientUseCase.execute(id, clientRequestDTO);
+            @PathVariable Long clientId,
+            @RequestBody @Valid ClientUpdateDTO clientUpdateDTO) {
+        ClientResponseDTO response = updateClientUseCase.execute(clientId, clientUpdateDTO);
         return ResponseEntity.ok(response);
     }
 }

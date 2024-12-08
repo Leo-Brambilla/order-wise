@@ -5,9 +5,12 @@ import com.order_wise.clients.application.usecases.addressUseCases.GetAllAddress
 import com.order_wise.clients.application.usecases.addressUseCases.UpdateAddressUseCase;
 import com.order_wise.clients.application.usecases.addressUseCases.impl.GetAddressByIdUseCaseImpl;
 import com.order_wise.clients.application.usecases.addressUseCases.impl.UpdateAddressUseCaseImpl;
+import com.order_wise.clients.domain.entities.Address;
 import com.order_wise.clients.domain.repositories.AddressRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class AddressUseCaseConfig {
@@ -24,6 +27,11 @@ public class AddressUseCaseConfig {
 
     @Bean
     public GetAllAddressUseCase getAllAddressUseCase(AddressRepository addressRepository) {
-        return new GetAllAddressUseCase(addressRepository);
+        return new GetAllAddressUseCase() {
+            @Override
+            public List<Address> execute() {
+                return List.of();
+            }
+        };
     }
 }

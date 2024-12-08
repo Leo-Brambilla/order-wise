@@ -1,81 +1,37 @@
 package com.order_wise.clients.application.dto.clientDTO;
 
+import com.order_wise.clients.application.dto.addressDTO.AddressDTO;
+import com.order_wise.clients.application.dto.userDTO.UserResponseDTO;
+
 public class ClientResponseDTO {
 
-    private Long clientId;
-    private String userName;
-    private String userDocument;
-    private Integer loyaltyPoints;
-    private Long preferredPaymentMethodId;
-    private String addressStreet;
-    private String addressCity;
+    private final Long id;
+    private final UserResponseDTO user;
+    private final Integer loyaltyPoints;
+    private final AddressDTO address;
 
-    public ClientResponseDTO(
-            Long clientId, String userName, String userDocument,
-            Integer loyaltyPoints, Long preferredPaymentMethodId,
-            String addressStreet, String addressCity) {
-        this.clientId = clientId;
-        this.userName = userName;
-        this.userDocument = userDocument;
-        this.loyaltyPoints = loyaltyPoints;
-        this.preferredPaymentMethodId = preferredPaymentMethodId;
-        this.addressStreet = addressStreet;
-        this.addressCity = addressCity;
+    public ClientResponseDTO(Long id, UserResponseDTO user, Integer loyaltyPoints, AddressDTO address) {
+        this.id = id;
+        this.user = user;
+        this.loyaltyPoints = loyaltyPoints != null ? loyaltyPoints : 0;
+        this.address = address;
     }
 
-    public Long getClientId() {
-        return clientId;
+
+
+    public Long getId() {
+        return id;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserDocument() {
-        return userDocument;
-    }
-
-    public void setUserDocument(String userDocument) {
-        this.userDocument = userDocument;
+    public UserResponseDTO getUser() {
+        return user;
     }
 
     public Integer getLoyaltyPoints() {
         return loyaltyPoints;
     }
 
-    public void setLoyaltyPoints(Integer loyaltyPoints) {
-        this.loyaltyPoints = loyaltyPoints;
-    }
-
-    public Long getPreferredPaymentMethodId() {
-        return preferredPaymentMethodId;
-    }
-
-    public void setPreferredPaymentMethodId(Long preferredPaymentMethodId) {
-        this.preferredPaymentMethodId = preferredPaymentMethodId;
-    }
-
-    public String getAddressStreet() {
-        return addressStreet;
-    }
-
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
-    }
-
-    public String getAddressCity() {
-        return addressCity;
-    }
-
-    public void setAddressCity(String addressCity) {
-        this.addressCity = addressCity;
+    public AddressDTO getAddress() {
+        return address;
     }
 }

@@ -1,13 +1,14 @@
 package com.order_wise.clients.application.usecases.addressUseCases.impl;
 
-
+import com.order_wise.clients.application.dto.addressDTO.AddressResponseDTO;
 import com.order_wise.clients.application.dto.addressDTO.AddressUpdateDTO;
 import com.order_wise.clients.application.usecases.addressUseCases.UpdateAddressUseCase;
 import com.order_wise.clients.domain.entities.Address;
 import com.order_wise.clients.domain.repositories.AddressRepository;
+import com.order_wise.clients.infrastructure.mappers.AddressMapper;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
+@Service
 public class UpdateAddressUseCaseImpl implements UpdateAddressUseCase {
 
     private final AddressRepository addressRepository;
@@ -17,7 +18,7 @@ public class UpdateAddressUseCaseImpl implements UpdateAddressUseCase {
     }
 
     @Override
-    public Address execute(Long id, AddressUpdateDTO addressUpdateDTO) {
+    public AddressResponseDTO execute(Long id, AddressUpdateDTO addressUpdateDTO) {
         Address existingAddress = addressRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Address not found for ID: " + id));
 
@@ -28,9 +29,11 @@ public class UpdateAddressUseCaseImpl implements UpdateAddressUseCase {
         existingAddress.setCity(addressUpdateDTO.getCity());
         existingAddress.setState(addressUpdateDTO.getState());
         existingAddress.setZipCode(addressUpdateDTO.getZipCode());
-        existingAddress.setAddressType(addressUpdateDTO.getType());
-        existingAddress.setUpdatedAt(LocalDateTime.now());
+        existingAddress.setAddressType(addressUpdateDTO.getAddressType());
+        existingAddress.setUpdatedAt(java.time.LocalDateTime.now());
 
-        return addressRepository.save(existingAddress);
+        Address updatedAddress = addressRepository.save(existingAddress);
+
+        return AddressMapper.toResponseDTO(updatedAddress);
     }
 }

@@ -4,18 +4,18 @@ import java.util.Objects;
 
 public class AddressResponseDTO {
 
-    private Long id;
-    private String street;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String number;
-    private String complement;
-    private String neighborhood;
-    private String type;
+    private final Long id;
+    private final String street;
+    private final String city;
+    private final String state;
+    private final String zipCode;
+    private final String number;
+    private final String complement;
+    private final String neighborhood;
+    private final String addressType;
 
     public AddressResponseDTO(Long id, String street, String city, String state, String zipCode,
-                              String number, String complement, String neighborhood, String type) {
+                              String number, String complement, String neighborhood, String addressType) {
         this.id = id;
         this.street = street;
         this.city = city;
@@ -24,82 +24,43 @@ public class AddressResponseDTO {
         this.number = number;
         this.complement = complement;
         this.neighborhood = neighborhood;
-        this.type = type;
-    }
-
-    public AddressResponseDTO() {
+        this.addressType = addressType;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getStreet() {
         return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getState() {
         return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
     public String getNumber() {
         return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
     }
 
     public String getComplement() {
         return complement;
     }
 
-    public void setComplement(String complement) {
-        this.complement = complement;
-    }
-
     public String getNeighborhood() {
         return neighborhood;
     }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public String getAddressType() {
+        return addressType;
     }
 
     @Override
@@ -112,6 +73,6 @@ public class AddressResponseDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 }

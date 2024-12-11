@@ -1,6 +1,7 @@
 package com.order_wise.clients.application.dto.addressDTO;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public class AddressRequestDTO {
 
@@ -17,40 +18,57 @@ public class AddressRequestDTO {
     private String zipCode;
 
     private String number;
-    private String complement;
-    private String neighborhood;
-    private String type;
 
-    public @NotBlank(message = "Street is required")
-    String getStreet() {
+    private String complement;
+
+    private String neighborhood;
+
+    @Pattern(regexp = "^(billing|shipping|other)$", message = "Type must be one of: billing, shipping, other")
+    private String AddressType;
+
+    public AddressRequestDTO() {
+    }
+
+    public AddressRequestDTO(String street, String city, String state, String zipCode, String number, String complement, String neighborhood, String AddressType) {
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.number = number;
+        this.complement = complement;
+        this.neighborhood = neighborhood;
+        this.AddressType = AddressType;
+    }
+
+    public String getStreet() {
         return street;
     }
 
-    public void setStreet(@NotBlank(message = "Street is required") String street) {
+    public void setStreet(String street) {
         this.street = street;
     }
 
-    public @NotBlank(message = "City is required") String getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(@NotBlank(message = "City is required") String city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public @NotBlank(message = "State is required") String getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(@NotBlank(message = "State is required") String state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public @NotBlank(message = "ZipCode is required") String getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(@NotBlank(message = "ZipCode is required") String zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -78,12 +96,11 @@ public class AddressRequestDTO {
         this.neighborhood = neighborhood;
     }
 
-    public String getType() {
-        return type;
+    public String getAddressType() {
+        return AddressType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAddressType(String addressType) {
+        this.AddressType = addressType;
     }
-
 }

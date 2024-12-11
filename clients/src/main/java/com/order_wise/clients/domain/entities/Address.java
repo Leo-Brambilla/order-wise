@@ -24,6 +24,7 @@ public class Address {
     public Address(Long id, Long clientId, String street, String number, String complement, String neighborhood,
                    String city, String state, String addressType, String zipCode, LocalDateTime createdAt,
                    LocalDateTime updatedAt) {
+        validateAddress(street, city, state, addressType);
         this.id = id;
         this.clientId = clientId;
         this.street = street;
@@ -39,6 +40,41 @@ public class Address {
     }
 
     public Address(String street, String number, String city, String state, String addressType) {
+        validateAddress(street, city, state, addressType);
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.state = state;
+        this.addressType = addressType;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public Address(String street, String number, String city, String state, String addressType, String zipCode, String complement, String neighborhood) {
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.state = state;
+        this.addressType = addressType;
+        this.zipCode = zipCode;
+        this.complement = complement;
+        this.neighborhood = neighborhood;
+    }
+
+    public void update(String street, String number, String complement, String neighborhood,
+                       String city, String state, String addressType, String zipCode) {
+        validateAddress(street, city, state, addressType);
+        this.street = street;
+        this.number = number;
+        this.complement = complement;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.addressType = addressType;
+        this.zipCode = zipCode;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    private void validateAddress(String street, String city, String state, String addressType) {
         if (street == null || street.isBlank()) {
             throw new IllegalArgumentException("Street cannot be null or blank.");
         }
@@ -48,42 +84,9 @@ public class Address {
         if (state == null || state.isBlank()) {
             throw new IllegalArgumentException("State cannot be null.");
         }
-        if (addressType == null) {
-            throw new IllegalArgumentException("AddressType cannot be null.");
+        if (addressType == null || addressType.isBlank()) {
+            throw new IllegalArgumentException("Address type cannot be null or blank.");
         }
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.state = state;
-        this.addressType = addressType;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public Address(String street, String number, String city, String state) {
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.state = state;
-    }
-
-    public Address(String street, String number, String city, String state, String type, String zipCode, String complement, String neighborhood) {
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.state = state;
-        this.addressType = type;
-        this.zipCode = zipCode;
-        this.complement = complement;
-        this.neighborhood = neighborhood;
-    }
-
-    public void update(String street, String number, String city, String state, String addressType) {
-        setStreet(street);
-        setNumber(number);
-        setCity(city);
-        setState(state);
-        setAddressType(addressType);
-        this.updatedAt = LocalDateTime.now();
     }
 
     public Long getId() {

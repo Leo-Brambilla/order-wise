@@ -1,6 +1,9 @@
 package com.order_wise.clients.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -15,29 +18,44 @@ public class AddressEntity {
     @Column(name = "client_id", nullable = false)
     private Long clientId;
 
-    @Column(name = "street", nullable = false)
+    @NotBlank(message = "Street cannot be blank")
+    @Size(max = 255, message = "Street length cannot exceed 255 characters")
+    @Column(name = "street", nullable = false, length = 255)
     private String street;
 
-    @Column(name = "number", nullable = false)
+    @NotBlank(message = "Number cannot be blank")
+    @Size(max = 50, message = "Number length cannot exceed 50 characters")
+    @Column(name = "number", nullable = false, length = 50)
     private String number;
 
+    @Size(max = 255, message = "Complement length cannot exceed 255 characters")
     @Column(name = "complement")
     private String complement;
 
-    @Column(name = "neighborhood", nullable = false)
+    @NotBlank(message = "Neighborhood cannot be blank")
+    @Size(max = 100, message = "Neighborhood length cannot exceed 100 characters")
+    @Column(name = "neighborhood", nullable = false, length = 100)
     private String neighborhood;
 
-    @Column(name = "city", nullable = false)
+    @NotBlank(message = "City cannot be blank")
+    @Size(max = 100, message = "City length cannot exceed 100 characters")
+    @Column(name = "city", nullable = false, length = 100)
     private String city;
 
-    @Column(name = "state", nullable = false)
+    @NotBlank(message = "State cannot be blank")
+    @Size(max = 2, message = "State length must be 2 characters")
+    @Column(name = "state", nullable = false, length = 2)
     private String state;
 
-    @Column(name = "zip_code", nullable = false)
+    @NotBlank(message = "Zip Code cannot be blank")
+    @Size(max = 20, message = "Zip Code length cannot exceed 20 characters")
+    @Column(name = "zip_code", nullable = false, length = 20)
     private String zipCode;
 
-    @Column(name = "type", nullable = false)
-    private String type; // e.g., "billing", "shipping"
+    @NotBlank(message = "Address Type cannot be blank")
+    @Size(max = 50, message = "Address Type length cannot exceed 50 characters")
+    @Column(name = "type", nullable = false, length = 50)
+    private String addressType;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -50,7 +68,7 @@ public class AddressEntity {
     }
 
     public AddressEntity(Long clientId, String street, String number, String complement, String neighborhood,
-                         String city, String state, String zipCode, String type) {
+                         String city, String state, String zipCode, String addressType) {
         this.clientId = clientId;
         this.street = street;
         this.number = number;
@@ -59,10 +77,25 @@ public class AddressEntity {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-        this.type = type;
+        this.addressType = addressType;
         this.createdAt = LocalDateTime.now();
     }
 
+    public AddressEntity(Long id, Long clientId, String street, String number, String complement,
+                         String neighborhood, String city, String state, String zipCode, String addressType) {
+        this.id = id; // ID opcional, pode ser nulo para criação
+        this.clientId = clientId; // Pode ser configurado após o mapeamento
+        this.street = street;
+        this.number = number;
+        this.complement = complement;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.addressType = addressType;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = null; // Inicialmente nulo
+    }
     public Long getId() {
         return id;
     }
@@ -135,12 +168,12 @@ public class AddressEntity {
         this.zipCode = zipCode;
     }
 
-    public String getType() {
-        return type;
+    public String getAddressType() {
+        return addressType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
     }
 
     public LocalDateTime getCreatedAt() {

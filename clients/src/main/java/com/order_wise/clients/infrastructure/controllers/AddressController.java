@@ -1,6 +1,5 @@
 package com.order_wise.clients.infrastructure.controllers;
 
-
 import com.order_wise.clients.application.dto.addressDTO.AddressRequestDTO;
 import com.order_wise.clients.application.dto.addressDTO.AddressResponseDTO;
 import com.order_wise.clients.application.dto.addressDTO.AddressUpdateDTO;
@@ -8,7 +7,6 @@ import com.order_wise.clients.application.usecases.addressUseCases.CreateAddress
 import com.order_wise.clients.application.usecases.addressUseCases.GetAddressByIdUseCase;
 import com.order_wise.clients.application.usecases.addressUseCases.GetAllAddressUseCase;
 import com.order_wise.clients.application.usecases.addressUseCases.UpdateAddressUseCase;
-import com.order_wise.clients.domain.entities.Address;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,21 +41,22 @@ public class AddressController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Address>> getAllAddresses() {
-        List<Address> addresses = getAllAddressesUseCase.execute();
+    public ResponseEntity<List<AddressResponseDTO>> getAllAddresses() {
+        List<AddressResponseDTO> addresses = getAllAddressesUseCase.execute();
         return ResponseEntity.ok(addresses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> getAddressById(@PathVariable Long id) {
-        Address address = getAddressByIdUseCase.execute(id);
+    public ResponseEntity<AddressResponseDTO> getAddressById(@PathVariable Long id) {
+        AddressResponseDTO address = getAddressByIdUseCase.execute(id);
         return ResponseEntity.ok(address);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @RequestBody @Valid AddressUpdateDTO addressUpdateDTO) {
-        Address updatedAddress = updateAddressUseCase.execute(id, addressUpdateDTO);
+    public ResponseEntity<AddressResponseDTO> updateAddress(
+            @PathVariable Long id,
+            @RequestBody @Valid AddressUpdateDTO addressUpdateDTO) {
+        AddressResponseDTO updatedAddress = updateAddressUseCase.execute(id, addressUpdateDTO);
         return ResponseEntity.ok(updatedAddress);
     }
-
 }

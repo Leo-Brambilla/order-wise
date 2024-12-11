@@ -4,30 +4,42 @@ import jakarta.validation.constraints.NotBlank;
 
 public class AddressUpdateDTO {
 
-    @NotBlank(message = "Street is required")
+    @NotBlank(message = "Street is required.")
     private String street;
 
-    @NotBlank(message = "Number is required")
+    @NotBlank(message = "Number is required.")
     private String number;
 
     private String complement;
 
-    @NotBlank(message = "Neighborhood is required")
+    @NotBlank(message = "Neighborhood is required.")
     private String neighborhood;
 
-    @NotBlank(message = "City is required")
+    @NotBlank(message = "City is required.")
     private String city;
 
-    @NotBlank(message = "State is required")
+    @NotBlank(message = "State is required.")
     private String state;
 
-    @NotBlank(message = "Zip code is required")
+    @NotBlank(message = "Zip code is required.")
     private String zipCode;
 
-    @NotBlank(message = "Type is required")
-    private String type;
+    @NotBlank(message = "Address type is required.")
+    private String addressType;
 
     public AddressUpdateDTO() {
+    }
+
+    public AddressUpdateDTO(String street, String number, String complement, String neighborhood,
+                            String city, String state, String zipCode, String addressType) {
+        this.street = street;
+        this.number = number;
+        this.complement = complement;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.addressType = addressType;
     }
 
     public String getStreet() {
@@ -86,11 +98,11 @@ public class AddressUpdateDTO {
         this.zipCode = zipCode;
     }
 
-    public String getType() {
-        return type;
+    public String getAddressType() {
+        return addressType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
     }
 }

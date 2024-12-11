@@ -1,7 +1,7 @@
 package com.order_wise.clients.application.usecases.addressUseCases;
 
-import com.order_wise.clients.domain.entities.Address;
+import com.order_wise.clients.application.dto.addressDTO.AddressResponseDTO;
 
 public interface GetAddressByIdUseCase {
-    Address execute(Long id);
+    AddressResponseDTO execute(Long id);
 }

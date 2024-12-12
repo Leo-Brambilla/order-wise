@@ -41,6 +41,14 @@ public class AddressDTO {
         this.neighborhood = neighborhood;
     }
 
+    public AddressDTO(String street, String number, String city, String state, String addressType) {
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.state = state;
+        this.addressType = addressType;
+    }
+
     // Getters and Setters
     public String getStreet() {
         return street;

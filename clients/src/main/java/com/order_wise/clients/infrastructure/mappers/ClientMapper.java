@@ -10,7 +10,6 @@ import com.order_wise.clients.domain.entities.User;
 public class ClientMapper {
 
     public static ClientResponseDTO toResponseDTO(Client client) {
-
         UserResponseDTO userResponse = new UserResponseDTO(
                 client.getUser().getId(),
                 client.getUser().getName(),
@@ -20,7 +19,7 @@ public class ClientMapper {
         );
 
         AddressDTO addressResponse = new AddressDTO(
-                client.getAddress().getAddressType(),
+                client.getAddress().getStreet(),
                 client.getAddress().getNumber(),
                 client.getAddress().getCity(),
                 client.getAddress().getState(),
@@ -34,7 +33,9 @@ public class ClientMapper {
                 addressResponse
         );
     }
+
     public static User toUser(UserRequestDTO userDTO) {
+
         return new User(
                 userDTO.getName(),
                 userDTO.getDocument(),
@@ -42,5 +43,4 @@ public class ClientMapper {
                 userDTO.getPassword()
         );
     }
-
 }

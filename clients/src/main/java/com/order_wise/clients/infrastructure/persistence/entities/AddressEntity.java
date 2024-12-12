@@ -67,8 +67,27 @@ public class AddressEntity {
         this.createdAt = LocalDateTime.now();
     }
 
-    public AddressEntity(Long clientId, String street, String number, String complement, String neighborhood,
-                         String city, String state, String zipCode, String addressType) {
+    public AddressEntity(Long id, Long clientId, String street, String number, String complement,
+                         String neighborhood, String city, String state, String zipCode, String addressType,
+                         LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.clientId = clientId;
+        this.street = street;
+        this.number = number;
+        this.complement = complement;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.addressType = addressType;
+        this.createdAt = createdAt != null ? createdAt : LocalDateTime.now();
+        this.updatedAt = updatedAt;
+    }
+
+
+    public AddressEntity(Long id, Long clientId, String street, String number, String complement,
+                         String neighborhood, String city, String state, String zipCode, String addressType) {
+        this.id = id;
         this.clientId = clientId;
         this.street = street;
         this.number = number;
@@ -79,22 +98,7 @@ public class AddressEntity {
         this.zipCode = zipCode;
         this.addressType = addressType;
         this.createdAt = LocalDateTime.now();
-    }
-
-    public AddressEntity(Long id, Long clientId, String street, String number, String complement,
-                         String neighborhood, String city, String state, String zipCode, String addressType) {
-        this.id = id; // ID opcional, pode ser nulo para criação
-        this.clientId = clientId; // Pode ser configurado após o mapeamento
-        this.street = street;
-        this.number = number;
-        this.complement = complement;
-        this.neighborhood = neighborhood;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        this.addressType = addressType;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = null; // Inicialmente nulo
+        this.updatedAt = null;
     }
     public Long getId() {
         return id;

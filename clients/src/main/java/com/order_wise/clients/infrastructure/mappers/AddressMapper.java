@@ -1,12 +1,12 @@
 package com.order_wise.clients.infrastructure.mappers;
 
+import com.order_wise.clients.application.dto.addressDTO.AddressDTO;
 import com.order_wise.clients.application.dto.addressDTO.AddressRequestDTO;
 import com.order_wise.clients.application.dto.addressDTO.AddressResponseDTO;
 import com.order_wise.clients.domain.entities.Address;
 import com.order_wise.clients.infrastructure.persistence.entities.AddressEntity;
 
 public class AddressMapper {
-
 
     public static AddressEntity toEntity(AddressRequestDTO dto) {
         if (dto == null) return null;
@@ -25,10 +25,32 @@ public class AddressMapper {
         );
     }
 
+    // Converte AddressDTO para Address (domínio)
+    public static Address toDomain(AddressDTO dto) {
+        if (dto == null) return null;
+
+        return new Address(
+                null,
+                null,
+                dto.getStreet(),
+                dto.getNumber(),
+                dto.getComplement(),
+                dto.getNeighborhood(),
+                dto.getCity(),
+                dto.getState(),
+                dto.getAddressType(),
+                dto.getZipCode(),
+                null,
+                null
+        );
+    }
+
+
     public static AddressEntity toEntity(Address address) {
         if (address == null) return null;
 
         return new AddressEntity(
+                address.getId(),
                 address.getClientId(),
                 address.getStreet(),
                 address.getNumber(),
@@ -37,7 +59,9 @@ public class AddressMapper {
                 address.getCity(),
                 address.getState(),
                 address.getZipCode(),
-                address.getAddressType()
+                address.getAddressType(),
+                address.getCreatedAt(),
+                address.getUpdatedAt()
         );
     }
 
@@ -59,6 +83,7 @@ public class AddressMapper {
                 entity.getUpdatedAt()
         );
     }
+
 
     public static AddressResponseDTO toResponseDTO(Address address) {
         if (address == null) return null;

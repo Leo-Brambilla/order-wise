@@ -9,7 +9,7 @@ public class ClientRequestDTO {
 
     @NotNull(message = "User information cannot be null")
     @Valid
-    private UserRequestDTO user;
+    private static UserRequestDTO user;
 
     @NotNull(message = "Address information cannot be null")
     @Valid

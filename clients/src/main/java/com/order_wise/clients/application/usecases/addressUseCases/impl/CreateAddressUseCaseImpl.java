@@ -18,10 +18,10 @@ public class CreateAddressUseCaseImpl implements CreateAddressUseCase {
 
     @Override
     public AddressResponseDTO execute(AddressRequestDTO addressRequestDTO) {
-        var address = AddressMapper.toEntity(addressRequestDTO);
+        var addressEntity = AddressMapper.toEntity(addressRequestDTO);
+        var savedAddressEntity = addressRepository.save(AddressMapper.toDomain(addressEntity));
 
-        var savedAddress = addressRepository.save(address);
-
-        return AddressMapper.toResponseDTO(savedAddress);
+        return AddressMapper.toResponseDTO(savedAddressEntity);
     }
+
 }

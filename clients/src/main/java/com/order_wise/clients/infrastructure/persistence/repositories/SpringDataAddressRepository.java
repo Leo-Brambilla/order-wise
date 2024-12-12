@@ -21,19 +21,23 @@ public class SpringDataAddressRepository implements AddressRepository {
 
     @Override
     public Address save(Address address) {
+        // Converte a entidade de domínio para a entidade de persistência
         AddressEntity entity = AddressMapper.toEntity(address);
         AddressEntity savedEntity = jpaRepository.save(entity);
+        // Converte a entidade de persistência para a entidade de domínio
         return AddressMapper.toDomain(savedEntity);
     }
 
     @Override
     public Optional<Address> findById(Long id) {
+        // Mapear do AddressEntity para Address
         return jpaRepository.findById(id)
                 .map(AddressMapper::toDomain);
     }
 
     @Override
     public List<Address> findByClientId(Long clientId) {
+        // Converte lista de AddressEntity para lista de Address
         return jpaRepository.findByClientId(clientId)
                 .stream()
                 .map(AddressMapper::toDomain)
@@ -42,11 +46,13 @@ public class SpringDataAddressRepository implements AddressRepository {
 
     @Override
     public void deleteById(Long id) {
+        // Deletar pelo ID
         jpaRepository.deleteById(id);
     }
 
     @Override
     public List<Address> findAll() {
+        // Converte lista de AddressEntity para lista de Address
         return jpaRepository.findAll()
                 .stream()
                 .map(AddressMapper::toDomain)

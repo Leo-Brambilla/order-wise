@@ -1,6 +1,6 @@
 package com.order_wise.clients.application.dto.clientDTO;
 
-import com.order_wise.clients.application.dto.addressDTO.AddressDTO;
+import com.order_wise.clients.application.dto.addressDTO.AddressResponseDTO;
 import com.order_wise.clients.application.dto.userDTO.UserResponseDTO;
 
 public class ClientResponseDTO {
@@ -8,9 +8,9 @@ public class ClientResponseDTO {
     private final Long id;
     private final UserResponseDTO user;
     private final Integer loyaltyPoints;
-    private final AddressDTO address;
+    private final AddressResponseDTO address;
 
-    public ClientResponseDTO(Long id, UserResponseDTO user, Integer loyaltyPoints, AddressDTO address) {
+    public ClientResponseDTO(Long id, UserResponseDTO user, Integer loyaltyPoints, AddressResponseDTO address) {
         this.id = id;
         this.user = user;
         this.loyaltyPoints = loyaltyPoints != null ? loyaltyPoints : 0;
@@ -31,7 +31,7 @@ public class ClientResponseDTO {
         return loyaltyPoints;
     }
 
-    public AddressDTO getAddress() {
+    public AddressResponseDTO getAddress() {
         return address;
     }
 }

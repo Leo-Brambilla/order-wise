@@ -16,6 +16,9 @@ public class ClientEntity {
     @Column(name = "loyalty_points", nullable = false)
     private Integer loyaltyPoints;
 
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
+
     @Column(name = "preferred_payment_method_id")
     private Long preferredPaymentMethodId;
 
@@ -36,9 +39,10 @@ public class ClientEntity {
     public ClientEntity() {
     }
 
-    public ClientEntity(Long id, Integer loyaltyPoints, Long preferredPaymentMethodId, UserEntity user, AddressEntity address, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ClientEntity(Long id, Integer loyaltyPoints, boolean isActive, Long preferredPaymentMethodId, UserEntity user, AddressEntity address, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.loyaltyPoints = loyaltyPoints;
+        this.isActive = isActive;
         this.preferredPaymentMethodId = preferredPaymentMethodId;
         this.user = user;
         this.address = address;
@@ -60,6 +64,14 @@ public class ClientEntity {
 
     public void setLoyaltyPoints(Integer loyaltyPoints) {
         this.loyaltyPoints = loyaltyPoints;
+    }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
     public Long getPreferredPaymentMethodId() {

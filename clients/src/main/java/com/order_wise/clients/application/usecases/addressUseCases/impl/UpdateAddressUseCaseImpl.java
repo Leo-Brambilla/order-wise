@@ -4,17 +4,19 @@ import com.order_wise.clients.application.dto.addressDTO.AddressResponseDTO;
 import com.order_wise.clients.application.dto.addressDTO.AddressUpdateDTO;
 import com.order_wise.clients.application.usecases.addressUseCases.UpdateAddressUseCase;
 import com.order_wise.clients.domain.entities.Address;
+import com.order_wise.clients.domain.mappers.AddressMapper;
 import com.order_wise.clients.domain.repositories.AddressRepository;
-import com.order_wise.clients.infrastructure.mappers.AddressMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UpdateAddressUseCaseImpl implements UpdateAddressUseCase {
 
     private final AddressRepository addressRepository;
+    private final AddressMapper addressMapper;
 
-    public UpdateAddressUseCaseImpl(AddressRepository addressRepository) {
+    public UpdateAddressUseCaseImpl(AddressRepository addressRepository, AddressMapper addressMapper) {
         this.addressRepository = addressRepository;
+        this.addressMapper = addressMapper;
     }
 
     @Override
@@ -34,6 +36,6 @@ public class UpdateAddressUseCaseImpl implements UpdateAddressUseCase {
 
         Address updatedAddress = addressRepository.save(existingAddress);
 
-        return AddressMapper.toResponseDTO(updatedAddress);
+        return addressMapper.toResponseDTO(updatedAddress);
     }
 }

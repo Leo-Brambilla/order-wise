@@ -8,7 +8,9 @@ import com.order_wise.clients.application.usecases.addressUseCases.impl.CreateAd
 import com.order_wise.clients.application.usecases.addressUseCases.impl.GetAddressByIdUseCaseImpl;
 import com.order_wise.clients.application.usecases.addressUseCases.impl.GetAllAddressUseCaseImpl;
 import com.order_wise.clients.application.usecases.addressUseCases.impl.UpdateAddressUseCaseImpl;
+import com.order_wise.clients.domain.mappers.AddressMapper;
 import com.order_wise.clients.domain.repositories.AddressRepository;
+import com.order_wise.clients.infrastructure.mappers.AddressMapperImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,22 +18,27 @@ import org.springframework.context.annotation.Configuration;
 public class AddressUseCaseConfig {
 
     @Bean
-    public CreateAddressUseCase createAddressUseCase(AddressRepository addressRepository) {
-        return new CreateAddressUseCaseImpl(addressRepository);
+    public AddressMapper addressMapper() {
+        return new AddressMapperImpl();
     }
 
     @Bean
-    public GetAddressByIdUseCase getAddressByIdUseCase(AddressRepository addressRepository) {
-        return new GetAddressByIdUseCaseImpl(addressRepository);
+    public CreateAddressUseCase createAddressUseCase(AddressRepository addressRepository, AddressMapper addressMapper) {
+        return new CreateAddressUseCaseImpl(addressRepository, addressMapper);
     }
 
     @Bean
-    public UpdateAddressUseCase updateAddressUseCase(AddressRepository addressRepository) {
-        return new UpdateAddressUseCaseImpl(addressRepository);
+    public GetAddressByIdUseCase getAddressByIdUseCase(AddressRepository addressRepository, AddressMapper addressMapper) {
+        return new GetAddressByIdUseCaseImpl(addressRepository, addressMapper);
     }
 
     @Bean
-    public GetAllAddressUseCase getAllAddressUseCase(AddressRepository addressRepository) {
-        return new GetAllAddressUseCaseImpl(addressRepository);
+    public UpdateAddressUseCase updateAddressUseCase(AddressRepository addressRepository, AddressMapper addressMapper) {
+        return new UpdateAddressUseCaseImpl(addressRepository, addressMapper);
+    }
+
+    @Bean
+    public GetAllAddressUseCase getAllAddressUseCase(AddressRepository addressRepository, AddressMapper addressMapper) {
+        return new GetAllAddressUseCaseImpl(addressRepository, addressMapper);
     }
 }

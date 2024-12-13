@@ -21,6 +21,8 @@ public class Address {
         this.createdAt = LocalDateTime.now();
     }
 
+
+
     public Address(Long id, Long clientId, String street, String number, String complement, String neighborhood,
                    String city, String state, String addressType, String zipCode, LocalDateTime createdAt,
                    LocalDateTime updatedAt) {

@@ -6,9 +6,9 @@ import com.order_wise.clients.application.usecases.clientUseCases.UpdateClientUs
 import com.order_wise.clients.domain.entities.Address;
 import com.order_wise.clients.domain.entities.Client;
 import com.order_wise.clients.domain.exceptions.UserNotFoundException;
+import com.order_wise.clients.domain.mappers.AddressMapper;
+import com.order_wise.clients.domain.mappers.ClientMapper;
 import com.order_wise.clients.domain.repositories.ClientRepository;
-import com.order_wise.clients.infrastructure.mappers.AddressMapper;
-import com.order_wise.clients.infrastructure.mappers.ClientMapper;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,13 @@ import org.springframework.stereotype.Service;
 public class UpdateClientUseCaseImpl implements UpdateClientUseCase {
 
     private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;
+    private final AddressMapper addressMapper;
 
-    public UpdateClientUseCaseImpl(ClientRepository clientRepository) {
+    public UpdateClientUseCaseImpl(ClientRepository clientRepository, ClientMapper clientMapper, AddressMapper addressMapper) {
         this.clientRepository = clientRepository;
+        this.clientMapper = clientMapper;
+        this.addressMapper = addressMapper;
     }
 
     @Override
@@ -39,12 +43,12 @@ public class UpdateClientUseCaseImpl implements UpdateClientUseCase {
         }
 
         if (clientUpdateDTO.getAddress() != null) {
-            Address updatedAddress = AddressMapper.toDomain(clientUpdateDTO.getAddress());
+            Address updatedAddress = addressMapper.toDomain(clientUpdateDTO.getAddress());
             client.setAddress(updatedAddress);
         }
 
         Client updatedClient = clientRepository.save(client);
 
-        return ClientMapper.toResponseDTO(updatedClient);
+        return clientMapper.toResponseDTO(updatedClient);
     }
 }

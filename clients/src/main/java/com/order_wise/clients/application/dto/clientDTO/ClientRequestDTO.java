@@ -17,6 +17,8 @@ public class ClientRequestDTO {
 
     private Integer loyaltyPoints = 0;
 
+    private boolean isActive;
+
     private Long preferredPaymentMethodId;
 
     public ClientRequestDTO() {
@@ -53,6 +55,15 @@ public class ClientRequestDTO {
         this.loyaltyPoints = loyaltyPoints;
     }
 
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public Long getPreferredPaymentMethodId() {
         return preferredPaymentMethodId;
     }
@@ -60,4 +71,5 @@ public class ClientRequestDTO {
     public void setPreferredPaymentMethodId(Long preferredPaymentMethodId) {
         this.preferredPaymentMethodId = preferredPaymentMethodId;
     }
+
 }
